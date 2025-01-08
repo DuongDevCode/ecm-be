@@ -3,7 +3,7 @@ const User = require('../../models/user.model')
 const getUser = async (req, res) => {
   const body = {
     email: req.body.email,
-    pwd: btoa(req.body.password)
+    pwd: btoa(req.body.pwd)
   }
   console.log('BODY: ', body)
   try {
