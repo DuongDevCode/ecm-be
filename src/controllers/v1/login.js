@@ -1,14 +1,10 @@
 const User = require('../../models/user.model')
+const {encrypt, decrypt} = require('../../../utils')
 
 const getUser = async (req, res) => {
-  const body = {
-    email: req.body.email,
-    pwd: btoa(req.body.pwd)
-  }
-  console.log('BODY: ', body)
   try {
     const user = await User.findOne({
-      where: body
+      where: req
     })
     if (user) return user
     else return {
@@ -24,11 +20,14 @@ const getUser = async (req, res) => {
 }
 
 const getLogin = async (req, res) => {
-  const user = await getUser(req, res)
+  const decrypt_body = decrypt(JSON.stringify(req.body.data))
+  // const decrypt_pwd = decrypt(JSON.parse(decrypt_body).pwd)
+  const req_body = JSON.parse(decrypt_body)
+  const user = await getUser(req_body, res)
   res.json({
     message: 'success',
     code: 200,
-    data: user ? user : null
+    data: user ? encrypt(JSON.stringify(user)) : null
   })
 }
 

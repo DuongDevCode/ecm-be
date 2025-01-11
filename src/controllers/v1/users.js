@@ -1,4 +1,5 @@
 const User = require('../../models/user.model')
+const crypto = require('crypto');
 
 const getUsers = async () => {
   try {
@@ -22,7 +23,11 @@ const funcUsers = async (req, res) => {
     message: 'success',
     code: 200,
     data: user ? user : [],
-    totalElements: user ? user.length : 0
+    totalElements: user ? user.length : 0,
+    crypto: {
+      key: (crypto.randomBytes(32)).toString('hex'),
+      iv: (crypto.randomBytes(16)).toString('hex')
+    }
   })
 }
 

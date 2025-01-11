@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const port = 8000
 const path = require('path');
+require('dotenv').config(); // Đọc các biến môi trường từ .env
 // const sequelize = require('./config/db.config')
 
 app.set('views', path.join(__dirname, 'views'));
