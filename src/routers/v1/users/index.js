@@ -1,10 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const useUsersController = require('../../../controllers/v1/users')
+const express = require('express');
+const userController = require('../../../controllers/v1/usersController');
 
-router.get('/users', useUsersController.funcUsers)
-router.post('/users/create', useUsersController.funcCreateUser)
-router.put('/users/:id', useUsersController.funcUpdateUser)
-router.delete('/users/:id', useUsersController.funcDeleteUser)
+const router = express.Router();
 
-module.exports = router
+console.log('test')
+
+// Định nghĩa các route
+router.post('/users', userController.createUser);
+router.get('/users', userController.getAllUsers);
+
+module.exports = router;

@@ -3,6 +3,8 @@ const {encrypt, decrypt} = require('../../../utils')
 
 const getUser = async (req, res) => {
   try {
+    console.log('REQ: ', req)
+    console.log(await User.findAll())
     const user = await User.findOne({
       where: req
     })
@@ -21,14 +23,19 @@ const getUser = async (req, res) => {
 
 const getLogin = async (req, res) => {
   const decrypt_body = decrypt(JSON.stringify(req.body.data))
-  // const decrypt_pwd = decrypt(JSON.parse(decrypt_body).pwd)
   const req_body = JSON.parse(decrypt_body)
   const user = await getUser(req_body, res)
-  res.json({
-    message: 'success',
-    code: 200,
-    data: user ? encrypt(JSON.stringify(user)) : null
-  })
+  if (user.code === 404) 
+    res.json({
+      message: user.message,
+      code: user.code
+    })
+  else
+    res.json({
+      message: 'success',
+      code: 200,
+      data: encrypt(JSON.stringify(user))
+    })
 }
 
 module.exports = {

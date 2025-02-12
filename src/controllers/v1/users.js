@@ -1,5 +1,6 @@
 const User = require('../../models/user.model')
 const crypto = require('crypto');
+const {encrypt, decrypt} = require('../../../utils')
 
 const getUsers = async () => {
   try {
@@ -33,7 +34,9 @@ const funcUsers = async (req, res) => {
 
 // CREATE
 const funcCreateUser = async (req, res) => {
-  const user = await User.create(req.body)
+  const decrypt_body = decrypt(JSON.stringify(req.body.data))
+  const req_body = JSON.parse(decrypt_body)
+  const user = await User.create(req_body)
   res.json({
     message: 'success',
     code: 200,
