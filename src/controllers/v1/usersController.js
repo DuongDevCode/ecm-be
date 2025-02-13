@@ -1,5 +1,4 @@
 const User = require('../../models/usersModel')
-console.log(222)
 exports.createUser = async (req, res) => {
   try {
     const {fullname, email, position, address, dob, pwd} = req.body
@@ -16,7 +15,6 @@ exports.createUser = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
       const users = await User.find();
-      console.log('USERS: ', users)
       res.status(200).json(users);
   } catch (error) {
       res.status(500).json({ message: 'Error fetching users', error: error.message });

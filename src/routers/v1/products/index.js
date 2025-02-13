@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const useProductsController = require('../../../controllers/v1/products')
 
-router.get('/products', useProductsController.funcGetProducts)
-// router.post('/users/create', useUsersController.funcCreateUser)
-// router.put('/users/:id', useUsersController.funcUpdateUser)
-// router.delete('/users/:id', useUsersController.funcDeleteUser)
+const useProductsController = require('../../../controllers/v1/productsController');
 
-module.exports = router
+// Định nghĩa các route
+router.post('/products', useProductsController.createProduct);
+router.get('/products', useProductsController.getAllProducts);
+router.get('/products/:id', useProductsController.getDetail);
+
+module.exports = router;
